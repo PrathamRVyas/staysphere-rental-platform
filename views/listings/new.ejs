@@ -1,0 +1,99 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row">
+  <div class="col-6 offset-3">
+  <h3><b>Create New Listing :</b></h3>
+
+  <form method="POST" action="/listings" novalidate class="needs-validation">
+
+    
+    <div class="mb-3">
+      <label class="form-label" for="title">Title</label>
+      <input
+        name="listing[title]"
+        type="text"
+        class="form-control"
+        placeholder="Add a catchy title"
+        id="title"
+        required
+      >
+      <div class="valid-feedback">Title looks good!</div>
+      <div class="invalid-feedback">Invalid Title!</div>
+    </div>
+
+    
+    <div class="mb-3">
+      <label class="form-label" for="desc">Description</label>
+      <textarea
+        name="listing[description]"
+        class="form-control"
+        rows="3"
+        placeholder="Enter Description"
+        id="desc"
+        required
+      ></textarea>
+      <div class="invalid-feedback">Please enter a short description!</div>
+    </div>
+
+   
+    <div class="mb-3">
+      <label class="form-label" for="img">Image URL</label>
+      <input
+        name="listing[image]"
+        type="text"
+        class="form-control"
+        placeholder="Enter image URL"
+        id="img"
+      >
+    </div>
+
+   <div class="row">
+    <div class="mb-3 col-md-4">
+      <label class="form-label" for="price">Price</label>
+      <input
+        name="listing[price]"
+        
+        class="form-control"
+        placeholder="1500"
+        id="price"
+        required
+      >
+      <div class="invalid-feedback">Price should be valid!</div>
+    </div>
+
+    <div class="mb-3 col-md-8">
+      <label class="form-label" for="country">Country</label>
+      <input
+      name="listing[country]"
+      type="text"
+      class="form-control"
+      placeholder="India"
+      id="country"
+      required
+      >
+      <div class="invalid-feedback">Country name should be valid!</div>
+    </div>
+    
+    
+
+    
+    <div class="mb-3">
+      <label class="form-label" for="loc">Location</label>
+      <input
+        name="listing[location]"
+        type="text"
+        class="form-control"
+        placeholder="Vadodara, Gujarat"
+        id="loc"
+        required
+      >
+      <div class="invalid-feedback">Location should be valid!</div>
+    </div>
+
+    
+    <button class="btn btn-dark btn-add mb-3">Add</button>
+    
+
+  </form>
+  </div>
+</div>
