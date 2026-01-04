@@ -6,9 +6,10 @@ body{
   background-color: lightcyan !important;
 }
 
-.container{
+.main-content {
   flex: 1;
 }
+
 
 .fa-compass{
   font-size: 2rem;
