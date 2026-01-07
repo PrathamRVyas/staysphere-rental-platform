@@ -10,9 +10,6 @@ const userSchema = new Schema({
   }
 });
 
-
-
-
 userSchema.plugin(passportLocalMongoose);
 //Username and Password will automatically be given by passport-local-mongoose
 
