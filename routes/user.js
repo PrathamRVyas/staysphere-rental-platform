@@ -5,53 +5,21 @@ const asyncWrap = require("../utils/wrapAsync");
 const passport = require("passport");
 const { saveRedirectUrl } = require("../middleware.js");
 
-router.get("/signup",(req,res)=>{
-   res.render("users/signup.ejs");
-});
+const userController = require("../controllers/users.js");
 
-router.post("/signup", asyncWrap(async(req,res) =>{
-    try{
-    let {username,email,password} = req.body;
-    const newUser = new user({email, username});
-    const registeredUser = await user.register(newUser, password);
-    req.login(registeredUser,(err)=>{
-      if(err){
-        return next(err);
-      }
-      else{
-        req.flash("success","Welcome to StaySphere!");
-        res.redirect("/listings");
-      }
-    });
-    } catch(e) {
-      req.flash("error", e.message);
-      res.redirect("/signup");
-    }
-    
-})
-);
 
-router.get("/login",(req,res)=>{
-  res.render("users/login.ejs")
-});
+router.route("/signup")
 
-router.post("/login",saveRedirectUrl, passport.authenticate("local",{failureRedirect: "/login", failureFlash: true}), asyncWrap(async(req,res)=>{
-  req.flash("success","Welcome to StaySphere! You are logged in!");
-  let redirectUrl = res.locals.redirectUrl || "/listings";
-  res.redirect(redirectUrl);
-})
-);
+.get(userController.renderSignupForm)
 
-router.get("/logout",(req,res,next)=>{
-    req.logout((err)=>{
-      if(err){
-        return next(err);
-      }
-      else{
-        req.flash("success","You are successfully logged out!");
-        res.redirect("/listings");
-      }
-    })
-});
+.post(asyncWrap(userController.signup));
+
+router.route("/login")
+
+.get(userController.renderLoginForm)
+
+.post(saveRedirectUrl, passport.authenticate("local",{failureRedirect: "/login", failureFlash: true}), asyncWrap(userController.login));
+
+router.get("/logout",userController.logout);
 
 module.exports = router;
