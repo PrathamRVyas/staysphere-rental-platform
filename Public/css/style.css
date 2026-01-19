@@ -119,3 +119,11 @@ body{
 .review-card button {
   margin-top: 0.75rem;
 }
+
+/* Map styling */
+
+#map { 
+  height: 400px;
+  width: 80vh;
+}
+
