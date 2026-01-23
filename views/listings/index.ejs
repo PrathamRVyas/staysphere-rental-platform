@@ -11,6 +11,8 @@
    align-items: center;
  }
  .filter {
+  text-decoration: none;
+  color: inherit;
   text-align: center;
   margin-right: 2rem;
   opacity: 0.7;
@@ -23,6 +25,8 @@
  .filter:hover {
     opacity: 1;
     cursor: pointer;
+    color: inherit;
+   text-decoration: none;
  }
  
  .tax-info{
@@ -39,54 +43,55 @@
  }
 </style>
 
+<div id="filters">
 
-  <div id="filters">
-
-    <div class="filter">
+  <a href="/listings?category=Trending" class="filter">
     <div><i class="fa-solid fa-fire"></i></div>  
     <p>Trending</p> 
-    </div>
+  </a>
 
-    <div class="filter">
+  <a href="/listings?category=Rooms" class="filter">
     <div><i class="fa-solid fa-bed"></i></div>  
     <p>Rooms</p> 
-    </div>
+  </a>
 
-    <div class="filter">
+  <a href="/listings?category=Iconic cities" class="filter">
     <div><i class="fa-solid fa-mountain-city"></i></div>  
     <p>Iconic cities</p> 
-    </div>
+  </a>
 
-    <div class="filter">
+  <a href="/listings?category=Mountains" class="filter">
     <div><i class="fa-solid fa-mountain"></i></div>  
     <p>Mountains</p> 
-    </div>
+  </a>
 
-    <div class="filter">
+  <a href="/listings?category=Castles" class="filter">
     <div><i class="fa-brands fa-fort-awesome"></i></div>  
     <p>Castles</p> 
-    </div>
+  </a>
 
-    <div class="filter">
+  <a href="/listings?category=Amazing Pools" class="filter">
     <div><i class="fa-solid fa-person-swimming"></i></div>  
     <p>Amazing Pools</p> 
-    </div>
+  </a>
 
-    
-    <div class="filter">
+  <a href="/listings?category=Camping" class="filter">
     <div><i class="fa-solid fa-campground"></i></div>  
     <p>Camping</p> 
-    </div>
+  </a>
 
-    <div class="filter">
+  <a href="/listings?category=Farms" class="filter">
     <div><i class="fa-solid fa-cow"></i></div>  
     <p>Farms</p> 
-    </div>
+  </a>
 
-    <div class="filter">
+  <a href="/listings?category=Arctic" class="filter">
     <div><i class="fa-solid fa-snowflake"></i></div>  
     <p>Arctic</p> 
-    </div>
+  </a>
+
+</div>
+
 
     <div class="tax-toggle">
         <div class="form-check-reverse form-switch">
@@ -100,7 +105,7 @@
     <%for(let listing of allListings){%>
       <a href="/listings/<%=listing._id%>" class="listing-link">
 <div class="card col listingcard">
-  <img src="<%=listing.image.url%>" 
+  <img src="<%=listing.image?.url || listing.image%>" 
   class="card-img-top" 
   alt="listing_image" 
   style="height: 20rem;" >
