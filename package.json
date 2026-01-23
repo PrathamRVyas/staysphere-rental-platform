@@ -1,4 +1,7 @@
 {
+  "engines":{
+    "node":"22.19.0"
+  },
   "name": "majorproject",
   "version": "1.0.0",
   "description": "",
@@ -13,6 +16,7 @@
     "@mapbox/mapbox-sdk": "^0.16.2",
     "cloudinary": "^1.41.3",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
