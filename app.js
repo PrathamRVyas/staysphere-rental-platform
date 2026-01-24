@@ -106,6 +106,7 @@ app.use((req, res, next) => {   //If All paths checked and the user's given rout
 
 
 app.use((err,req,res,next)=>{
+    console.error("ERROR OCCURRED:", err);
     let {statusCode=500, message="Something went wrong"} = err;
     res.status(statusCode).render("error.ejs",{message});
     //res.status(statusCode).send(message);
