@@ -1,21 +1,36 @@
-# StaySphere :
+StaySphere – Rental Listing Website
 
-End-to-End Rental and Accommodation Platform
+StaySphere is a full-stack rental listing web application inspired by Airbnb.
+Users can explore listings, create their own listings, upload images, add reviews, and view locations on a map.
 
-StaySphere is a full-stack web application that allows users to list, browse, and review rental accommodations. The project focuses on building a clean backend architecture with real-world features and best practices.
+Features
 
-## Features :
+User authentication (Signup / Login / Logout)
 
-CRUD operations for listings and reviews
+Create, Edit and Delete Listings
 
-User authentication and authorization
+Image upload using Cloudinary
 
-Session and cookie-based state management
+Category-based filtering (Trending, Rooms, Mountains, Arctic, etc.)
 
-Server-side validation and centralized error handling
+Reviews and Ratings
 
-MVC architecture using Express and Mongoose
+Authorization (only owner can modify a listing)
 
-## Tech Stack :
+Map display using Mapbox
 
-Node.js · Express · MongoDB · Mongoose · EJS · Bootstrap
+Flash messages for errors and success
+
+Deployed using Render
+
+Tech Stack
+
+Frontend: EJS, Bootstrap, CSS
+
+Backend: Node.js, Express.js
+
+Database: MongoDB (Atlas)
+
+Authentication: Passport.js
+
+APIs: Cloudinary, Mapbox
