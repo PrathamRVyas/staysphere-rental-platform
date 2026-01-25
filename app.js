@@ -99,6 +99,9 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
 
 app.use((req, res, next) => {   //If All paths checked and the user's given route is not found then this will throw page not found error
   next(new ExpressError(404, "Page not found!"));
