@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Review = require("./review.js");
-
 const listingSchema = new Schema({
     title : {
       type : String,
@@ -28,7 +27,7 @@ const listingSchema = new Schema({
     geometry: {
     type: {
       type: String, // Don't do `{ location: { type: String } }`
-      enum: ['Point'], // 'location.type' must be 'Point'
+      enum: ['Point'], // 'location.type' must be  a 'Point'
       required: true
     },
     coordinates: {
