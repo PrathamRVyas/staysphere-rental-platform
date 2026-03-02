@@ -10,16 +10,18 @@ const userController = require("../controllers/users.js");
 
 router.route("/signup")
 
-.get(userController.renderSignupForm)
+.get(userController.signup)
 
-.post(asyncWrap(userController.signup));
+.post(asyncWrap(userController.signupUser));
+
+router.post("/verify-otp", asyncWrap(userController.verifyOtp));
 
 router.route("/login")
 
-.get(userController.renderLoginForm)
+.get(userController.login)
 
-.post(saveRedirectUrl, passport.authenticate("local",{failureRedirect: "/login", failureFlash: true}), asyncWrap(userController.login));
+.post(saveRedirectUrl, passport.authenticate("local",{failureRedirect: "/login", failureFlash: true}), asyncWrap(userController.loginUser));
 
-router.get("/logout",userController.logout);
+router.get("/logout",userController.logoutUser);
 
 module.exports = router;
