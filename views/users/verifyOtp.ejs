@@ -1,0 +1,26 @@
+<% layout("./layouts/boilerplate") -%>
+
+<div class="row">
+  <h1 class="col-6 offset-3 mt-3">Verify Your Email</h1>
+
+  <div class="col-6 offset-3 mt-3">
+    <form action="/verify-otp" method="post">
+      
+      <!-- Email comes from controller -->
+      <input type="hidden" name="email" value="<%= email %>">
+
+      <div class="mb-3">
+        <label class="form-label">Enter OTP</label>
+        <input
+          type="text"
+          name="otp"
+          class="form-control"
+          placeholder="6-digit OTP"
+          required
+        >
+      </div>
+
+      <button class="btn btn-success">Verify OTP</button>
+    </form>
+  </div>
+</div>
