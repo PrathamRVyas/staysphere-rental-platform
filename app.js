@@ -21,6 +21,7 @@ const User = require("./Models/user.js");
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/reviews.js");
 const userRouter = require("./routes/user.js");
+const aiRouter = require("./routes/ai.js");
 
  const dbUrl = process.env.ATLASDB_URL;
 
@@ -39,6 +40,7 @@ app.engine('ejs',ejsMate);
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname, "views"));
 app.use(express.urlencoded({extended : true})); //To parse from data (req.body)
+app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname,"/Public")));
 
@@ -79,9 +81,9 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req,res,next)=>{
-  res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
-  res.locals.currUser = req.user;
+  res.locals.success = req.flash("success") || [];
+  res.locals.error = req.flash("error") || [];
+  res.locals.currUser = req.user || null;
   next();
 });
 
@@ -98,6 +100,7 @@ app.use((req,res,next)=>{
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
+app.use("/ai", aiRouter);
 
 app.get("/", (req, res) => {
   res.redirect("/listings");
@@ -114,7 +117,6 @@ app.use((err,req,res,next)=>{
     res.status(statusCode).render("error.ejs",{message});
     //res.status(statusCode).send(message);
 });
-
 
 app.listen(8080,()=>{
   console.log("Server is listening to port 8080");

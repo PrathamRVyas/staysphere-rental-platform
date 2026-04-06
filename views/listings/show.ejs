@@ -24,7 +24,7 @@
     <div class="card-body">
 
       <p class="card-text">
-        <b>Owned by:</b> <i><%= listing.owner.username %></i>
+        <b>Owned by:</b> <i><%= listing.owner ? listing.owner.username : 'Unknown' %></i>
       </p>
 
       <p class="card-text"><%= listing.description %></p>
@@ -43,7 +43,7 @@
 
   </div>
 
-<% if (currUser && listing.owner._id.equals(currUser._id)) { %> <div class="row justify-content-center mt-3"> <div class="col-lg-8 col-12 d-flex gap-3">
+<% if (currUser && listing.owner && listing.owner._id.equals(currUser._id)) { %> <div class="row justify-content-center mt-3"> <div class="col-lg-8 col-12 d-flex gap-3">
 
     <a href="/listings/<%= listing._id %>/edit"
        class="btn btn-dark">
@@ -124,6 +124,33 @@
 
     <p><b>All Reviews</b></p>
 
+<% 
+  const sentiments = listing.reviews.map(r => r.sentiment).filter(Boolean);
+  const posCount = sentiments.filter(s => s === 'Positive').length;
+  const negCount = sentiments.filter(s => s === 'Negative').length;
+  const neuCount = sentiments.filter(s => s === 'Neutral').length;
+  let summaryText = '';
+  let summaryClass = '';
+  if (sentiments.length > 0) {
+    if (posCount > negCount && posCount > neuCount) {
+      summaryText = `Insight: Most guests had a positive experience (${posCount} positive, ${neuCount} neutral, ${negCount} negative reviews).`;
+      summaryClass = 'text-success';
+    } else if (negCount > posCount && negCount > neuCount) {
+      summaryText = `Insight: Guests had a mixed experience (${negCount} negative, ${neuCount} neutral, ${posCount} positive reviews).`;
+      summaryClass = 'text-danger';
+    } else {
+      summaryText = `Insight: Guests had a mixed experience (${posCount} positive, ${neuCount} neutral, ${negCount} negative reviews).`;
+      summaryClass = 'text-warning';
+    }
+  }
+%>
+
+<% if (summaryText) { %>
+  <div class="alert alert-light border mb-3 py-2">
+    <small class="<%= summaryClass %>"><b><%= summaryText %></b></small>
+  </div>
+<% } %>
+
     <div class="row g-3">
 
       <% for (let review of listing.reviews) { %>
@@ -141,6 +168,18 @@
                  data-rating="<%= review.rating %>"></p>
 
               <p><%= review.comment %></p>
+
+              <% if (review.sentiment) { %>
+                  <span class="badge <%=
+                  review.sentiment === 'Positive' ? 'bg-success' :
+                  review.sentiment === 'Negative' ? 'bg-danger' : 'bg-secondary'
+                %>">
+                <%=
+                  review.sentiment === 'Positive' ? 'Positive' :
+                  review.sentiment === 'Negative' ? 'Negative' : 'Neutral'
+                %>
+  </span>
+<% } %>
 
               <form method="POST"
                     action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">

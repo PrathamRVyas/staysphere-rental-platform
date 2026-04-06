@@ -31,7 +31,17 @@
         required
       ><%= listing.description %></textarea>
       <div class="invalid-feedback">Please enter a short description!</div>
+      <button type="button" id="generate-desc" class="btn btn-outline-secondary btn-sm mt-1">✨ Generate with AI</button>
     </div>
+
+  <div class="mb-3">
+  <label class="form-label" for="category">Category</label>
+  <select name="listing[category]" id="category" class="form-select" required>
+    <% ["Trending","Rooms","Iconic cities","Mountains","Castles","Amazing Pools","Camping","Farms","Arctic","Domes","Boats"].forEach(cat => { %>
+      <option value="<%= cat %>" <%= listing.category === cat ? "selected" : "" %>><%= cat %></option>
+    <% }) %>
+  </select>
+</div>
 
     <div class="mb-3">
       Original Listing Image <br>
@@ -98,3 +108,21 @@
   </div>
  
 </body>
+
+<script>
+  document.getElementById("generate-desc").addEventListener("click", async () => {
+    const title = document.getElementById("title").value;
+    const location = document.getElementById("location").value;
+    const country = document.getElementById("country").value;
+    const category = document.querySelector("select[name='listing[category]']").value;
+
+    const response = await fetch("/ai/generate-description", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title, location, country, category })
+    });
+
+    const data = await response.json();
+    document.getElementById("desc").value = data.description;
+  });
+</script>

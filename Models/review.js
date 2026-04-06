@@ -14,6 +14,15 @@ const reviewSchema = new Schema({
         min : 1,
         max : 5,
       },
+
+      sentiment : {
+        type : String,
+        enum : [
+          "Positive",
+          "Neutral",
+          "Negative"
+        ],
+      },
       
       createdAt : {
         type : Date,
